@@ -9,9 +9,8 @@ exports.logIp = (req, res, next) => {
   console.info(`${method}- invoked by -${ip}-for-${path} using -${protocol}`);
   next();
 };
-exports.notfound = (error, req, res, next) => {
-  if (error) {
-    res.status(404).json("Route not found");
-  }
+exports.notfound = (req, res, next) => {
+  res.status(404).json("Route not found");
+
   next();
 };

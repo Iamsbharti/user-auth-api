@@ -13,11 +13,12 @@ const app = express();
 initdb();
 
 //middlewares
-app.use(logIp, notfound);
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+app.use(logIp);
 //routes
 app.use("/api/users", router);
+app.use(notfound);
 
 //server listens
 app.listen(process.env.SERVER_PORT, () =>

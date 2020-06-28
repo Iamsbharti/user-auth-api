@@ -1,4 +1,5 @@
 const express = require("express");
+const { formatResponse } = require("../lib");
 
 exports.logIp = (req, res, next) => {
   let ip = req.ip;
@@ -10,7 +11,6 @@ exports.logIp = (req, res, next) => {
   next();
 };
 exports.notfound = (req, res, next) => {
-  res.status(404).json("Route not found");
-
+  res.status(404).json(formatResponse(true, "Route Not Found", null));
   next();
 };

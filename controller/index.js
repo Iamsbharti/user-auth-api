@@ -69,3 +69,7 @@ exports.login = async (req, res) => {
   res.header("auth-token", token);
   res.status(200).json(formatResponse(false, "Success", null));
 };
+
+exports.posts = (req, res) => {
+  res.status(200).json(formatResponse(false, "POSTS", req.user));
+};

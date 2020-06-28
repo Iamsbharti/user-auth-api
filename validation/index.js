@@ -1,5 +1,6 @@
 const joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
+const { formatResponse } = require("../lib");
 //validation schema
 
 exports.registrationValidation = (data) => {
@@ -17,6 +18,19 @@ exports.loginValidation = (data) => {
   });
   return schema.validate(data);
 };
-exports.verifyAuthToken = () => {
-  const token = "";
+exports.verifyAuthToken = (req, res, next) => {
+  const token = req.header("auth-token");
+  if (!token)
+    return res
+      .status(401)
+      .json(formatResponse(true, "Access Denied", req.body.email));
+
+  try {
+    let validatedToken = jwt.verify(token, process.env.SECRET_TOKEN);
+    req.user = validatedToken;
+  } catch (error) {
+    res.status(400).json(formatResponse(true, "Invalid Token", null));
+  }
+
+  next();
 };

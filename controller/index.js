@@ -3,6 +3,7 @@ const User = require("../models/User");
 const { formatResponse } = require("../lib");
 const { registrationValidation, loginValidation } = require("../validation");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -63,5 +64,8 @@ exports.login = async (req, res) => {
   if (!validPassword)
     return res.status(400).json(formatResponse(true, "Wrong Password", null));
 
+  //generate jwt-auth-token
+  let token = jwt.sign({ _id: userExists._id }, process.env.SECRET_TOKEN);
+  res.header("auth-token", token);
   res.status(200).json(formatResponse(false, "Success", null));
 };

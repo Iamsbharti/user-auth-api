@@ -1,7 +1,5 @@
-const { required } = require("@hapi/joi");
-
 const joi = require("@hapi/joi");
-
+const jwt = require("jsonwebtoken");
 //validation schema
 
 exports.registrationValidation = (data) => {
@@ -18,4 +16,7 @@ exports.loginValidation = (data) => {
     password: joi.string().min(8).required(),
   });
   return schema.validate(data);
+};
+exports.verifyAuthToken = () => {
+  const token = "";
 };

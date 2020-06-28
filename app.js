@@ -16,9 +16,9 @@ initdb();
 
 app.use(bodyParser.json());
 app.use(logIp);
+
 //routes
 app.use("/api/users", router);
-app.use(notfound);
 
 //server listens
 app.listen(process.env.SERVER_PORT, () =>

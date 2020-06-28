@@ -19,5 +19,9 @@ let userSchema = mongoose.Schema({
     min: 8,
     max: 1024,
   },
+  created: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 module.exports = mongoose.model("User", userSchema);
